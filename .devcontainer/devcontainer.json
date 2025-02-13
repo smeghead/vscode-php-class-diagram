@@ -1,0 +1,13 @@
+{
+  "name": "VSCode Extension Dev",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  }
+}

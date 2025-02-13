@@ -1,0 +1,8 @@
+services:
+  vscode-extension-dev:
+    build: .
+    container_name: vscode-extension-dev
+    volumes:
+      - .:/workspace/app
+    tty: true
+    stdin_open: true
