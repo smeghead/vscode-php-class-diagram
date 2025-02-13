@@ -20,3 +20,12 @@ docker exec -it vscode-extension-dev bash
 ```bash
 npm install --save-dev typescript
 ```
+
+
+### Run Tests
+
+```bash
+Xvfb :99 -screen 0 1024x768x16  &> /tmp/xvfb.log &
+export DISPLAY=:99
+npm run test
+```
