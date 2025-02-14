@@ -20,6 +20,24 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+
+	const disposableGenerateDiagram = vscode.commands.registerCommand(
+		"php-class-diagram.generateClassDiagram",
+		(uri: vscode.Uri) => {
+		if (!uri) {
+			vscode.window.showErrorMessage("No file selected.");
+			return;
+		}
+
+		vscode.window.showInformationMessage(
+			`Generating diagram for: ${uri.fsPath}`
+		);
+
+		// ここに処理を実装（例: ファイルパスを渡してクラス図を生成）
+		}
+	);
+
+  context.subscriptions.push(disposableGenerateDiagram);
 }
 
 // This method is called when your extension is deactivated

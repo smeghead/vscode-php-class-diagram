@@ -9,15 +9,30 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "php-class-diagram.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "php-class-diagram.generateClassDiagram",
+        "title": "Generate class diagram",
+        "category": "PHP Class Diagram"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "php-class-diagram.generateClassDiagram",
+          "when": "resourceScheme == 'file' && explorerResourceIsFolder == true",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
