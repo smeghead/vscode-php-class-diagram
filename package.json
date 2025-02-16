@@ -1,14 +1,13 @@
 {
   "name": "php-class-diagram",
   "displayName": "php-class-diagram",
-  "description": "Create PHP Class Diagram by Docker.",
+  "description": "Create PHP Class Diagram.",
   "version": "0.0.1",
+  "publisher": "smeghead7",
   "engines": {
     "vscode": "^1.97.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Programming Languages", "Visualization"],
   "activationEvents": [
   ],
   "main": "./out/extension.js",
@@ -29,7 +28,7 @@
         {
           "command": "php-class-diagram.generateClassDiagram",
           "when": "resourceScheme == 'file' && explorerResourceIsFolder == true",
-          "group": "navigation"
+          "group": "z_commands"
         }
       ]
     }

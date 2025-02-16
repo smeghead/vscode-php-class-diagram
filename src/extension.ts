@@ -69,6 +69,7 @@ export function activate(context: vscode.ExtensionContext) {
 			// 作成したPlantUMLのファイルを新しいウィンドウで開く。
 			runCommand(command).then(({ stdout, stderr }) => {
 				openFileInNewTab(output);
+				vscode.window.showInformationMessage(`Complete: Opened ${output} in new tab.`);
 			}).catch(({ stdout, stderr }) => {
 				console.log("Command failed!");
 				console.error("stderr:", stderr);
