@@ -4,6 +4,10 @@
   "description": "Create PHP Class Diagram.",
   "version": "0.0.1",
   "publisher": "smeghead7",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smeghead/vscode-php-class-diagram.git"
+  },
   "engines": {
     "vscode": "^1.97.0"
   },
