@@ -1,9 +1,20 @@
 # Change Log
 
-All notable changes to the "php-class-diagram" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
 ## [Unreleased]
 
 - Initial release
+
+## 0.0.2 (2025-02-17)
+
+### Bug fix
+
+- The condition for displaying the context menu of a folder in the File Explorer was changed so that it is not limited to local files but is also displayed for folders on the DevContainer.
+
+## 0.0.1 (2025-02-16)
+
+- Initial release
+
+### Features
+
+- This VSCode extension allows you to generate and view class diagram scripts using [php-class-diagram](https://packagist.org/packages/smeghead php-class-diagram) directly from the file explorer's folder context menu.
+

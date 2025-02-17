@@ -2,7 +2,7 @@
   "name": "php-class-diagram",
   "displayName": "php-class-diagram",
   "description": "Create PHP Class Diagram.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "smeghead7",
   "repository": {
     "type": "git",
@@ -31,11 +31,11 @@
       "explorer/context": [
         {
           "command": "php-class-diagram.generateClassDiagram",
-          "when": "resourceScheme == 'file' && explorerResourceIsFolder == true",
-          "group": "z_commands"
+          "when": "explorerResourceIsFolder",
+          "group": "2_execution"
         }
       ]
-    }
+    } 
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
