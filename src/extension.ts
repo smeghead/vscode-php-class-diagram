@@ -66,6 +66,14 @@ export function activate(context: vscode.ExtensionContext) {
 			const command = commandBuilder.getCommand(phpClassDiagram, target, output);
 			console.log(command);
 
+			if (phpClassDiagram.length === 0) {
+				vscode.window.showErrorMessage(
+					`Error: Failed to search php-class-diagram command.
+					Please install php-class-diagram into your composer project.
+					\`composer require --dev smeghead/php-class-diagram\`` );
+				return;
+			}
+
 			// 作成したPlantUMLのファイルを新しいウィンドウで開く。
 			runCommand(command).then(({ stdout, stderr }) => {
 				openFileInNewTab(output);

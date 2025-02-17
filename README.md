@@ -30,12 +30,4 @@ This extension does not currently have any configurable settings.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 0.0.1
-
-Initial release with support for generating and opening class diagram scripts from the context menu.
+There is no known issues.
