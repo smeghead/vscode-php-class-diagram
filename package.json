@@ -18,10 +18,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "php-class-diagram.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "php-class-diagram.generateClassDiagram",
         "title": "Generate class diagram",
         "category": "PHP Class Diagram"

@@ -2,12 +2,14 @@
 
 ## [Unreleased]
 
+- .
 
 ## 0.0.3 (2025-02-17)
 
 ### Bug fix
 
 - Add error message if the php-class-diagram executable could not be found.
+- Remove example commands, etc.
 
 ## 0.0.2 (2025-02-17)
 
