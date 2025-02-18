@@ -2,7 +2,7 @@
   "name": "php-class-diagram",
   "displayName": "php-class-diagram",
   "description": "Create PHP Class Diagram.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "smeghead7",
   "repository": {
     "type": "git",
