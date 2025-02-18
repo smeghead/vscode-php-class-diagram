@@ -14,7 +14,10 @@ function getComposerDirectory(dir: string) {
     return getComposerDirectory(p.dir);
 }
 
-export function getPhpClassDiagramPath(target: string): string {
+export function getPhpClassDiagramPath(target: string, executablePath: string | undefined): string {
+    if (executablePath && executablePath.trim().length > 0) {
+        return executablePath;
+    }
     const composerDirectory = getComposerDirectory(target);
 
     const execPath = path.join(composerDirectory, 'vendor/bin/php-class-diagram');

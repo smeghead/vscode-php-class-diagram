@@ -4,6 +4,12 @@
 
 - .
 
+## 0.0.4 (2025-02-18)
+
+### Features
+
+- Add setting `PHP-class-diagram: Executable Path`.
+
 ## 0.0.3 (2025-02-17)
 
 ### Bug fix

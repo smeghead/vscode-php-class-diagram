@@ -31,7 +31,17 @@
           "group": "2_execution"
         }
       ]
-    } 
+    },
+    "configuration": {
+      "title": "PHP Class Diagram",
+      "properties": {
+        "php-class-diagram.executablePath": {
+          "type": "string",
+          "default": "",
+          "description": "Specify the path to the php-class-diagram executable. Leave empty to use the default from Composer."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

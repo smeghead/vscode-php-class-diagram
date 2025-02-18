@@ -21,12 +21,10 @@ async function openFileInNewTab(filePath: string) {
         const document = await vscode.workspace.openTextDocument(filePath);
         await vscode.window.showTextDocument(document, { preview: false });
     } catch (error) {
-        vscode.window.showErrorMessage(`Failed to open file: ${error}`);
+		throw new Error(`Failed to open file: ${error}`);
     }
 }
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "php-class-diagram" is now active!');
 
@@ -38,13 +36,9 @@ export function activate(context: vscode.ExtensionContext) {
 				return;
 			}
 
-			vscode.window.showInformationMessage(
-				`Generating diagram for: ${uri.fsPath}`
-			);
-
-			// ここに処理を実装（例: ファイルパスを渡してクラス図を生成）
+			const config = vscode.workspace.getConfiguration("php-class-diagram");
 			const target = uri.fsPath;
-			const phpClassDiagram = pathResolver.getPhpClassDiagramPath(target);
+			const phpClassDiagram = pathResolver.getPhpClassDiagramPath(target, config.get("executablePath"));
 			const timestamp = Math.floor( new Date().getTime() / 1000 );
 			const output = `${os.tmpdir()}/${timestamp}.puml`;
 			const command = commandBuilder.getCommand(phpClassDiagram, target, output);
@@ -53,8 +47,10 @@ export function activate(context: vscode.ExtensionContext) {
 			if (phpClassDiagram.length === 0) {
 				vscode.window.showErrorMessage(
 					`Error: Failed to search php-class-diagram command.
-					Please install php-class-diagram into your composer project.
-					\`composer require --dev smeghead/php-class-diagram\`` );
+Please install php-class-diagram into your composer project.
+\`composer require --dev smeghead/php-class-diagram\`
+or Specify \`PHP-class-diagram: Executable Path\` in settings.` 
+				);
 				return;
 			}
 
@@ -73,5 +69,4 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
