@@ -12,6 +12,10 @@ With this extension, you can:
 
 * Use [the PlantUML extension](https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml) to visualize the class diagram.
 
+![Context Menu](docs/vscode-php-class-diagram01.jpg)
+
+![Preview](docs/vscode-php-class-diagram02.jpg)
+
 ## Requirements
 
 Before using this extension, ensure the following requirements are met:
@@ -24,9 +28,10 @@ Before using this extension, ensure the following requirements are met:
 composer require --dev smeghead/php-class-diagram
 ```
 
+
 ## Extension Settings
 
-This extension does not currently have any configurable settings.
+- `php-class-diagram.executablePath`: Specify the path to the php-class-diagram executable.
 
 ## Known Issues
 
