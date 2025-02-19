@@ -25,9 +25,12 @@ async function openFileInNewTab(filePath: string) {
     }
 }
 
-export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "php-class-diagram" is now active!');
+function getOutputFilename(): string {
+	const timestamp = Math.floor( new Date().getTime() / 1000 );
+	return `${os.tmpdir()}/${timestamp}.puml`;
+}
 
+export function activate(context: vscode.ExtensionContext) {
 	const disposable = vscode.commands.registerCommand(
 		"php-class-diagram.generateClassDiagram",
 		(uri: vscode.Uri) => {
@@ -39,11 +42,6 @@ export function activate(context: vscode.ExtensionContext) {
 			const config = vscode.workspace.getConfiguration("php-class-diagram");
 			const target = uri.fsPath;
 			const phpClassDiagram = pathResolver.getPhpClassDiagramPath(target, config.get("executablePath"));
-			const timestamp = Math.floor( new Date().getTime() / 1000 );
-			const output = `${os.tmpdir()}/${timestamp}.puml`;
-			const command = commandBuilder.getCommand(phpClassDiagram, target, output);
-			console.log(command);
-
 			if (phpClassDiagram.length === 0) {
 				vscode.window.showErrorMessage(
 					`Error: Failed to search php-class-diagram command.
@@ -54,10 +52,14 @@ or Specify \`PHP-class-diagram: Executable Path\` in settings.`
 				return;
 			}
 
+			const outputFilename = getOutputFilename();
+			const command = commandBuilder.getCommand(phpClassDiagram, target, outputFilename);
+			console.log(command);
+
 			// 作成したPlantUMLのファイルを新しいウィンドウで開く。
 			runCommand(command).then(({ stdout, stderr }) => {
-				openFileInNewTab(output);
-				vscode.window.showInformationMessage(`Complete: Opened ${output} in new tab.`);
+				openFileInNewTab(outputFilename);
+				vscode.window.showInformationMessage(`Complete: Opened ${outputFilename} in new tab.`);
 			}).catch(({ stdout, stderr }) => {
 				console.log("Command failed!");
 				console.error("stderr:", stderr);
@@ -66,7 +68,7 @@ or Specify \`PHP-class-diagram: Executable Path\` in settings.`
 		}
 	);
 
-  context.subscriptions.push(disposable);
+  	context.subscriptions.push(disposable);
 }
 
 export function deactivate() {}
