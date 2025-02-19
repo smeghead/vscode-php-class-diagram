@@ -21,12 +21,22 @@
         "command": "php-class-diagram.generateClassDiagram",
         "title": "Generate class diagram",
         "category": "PHP Class Diagram"
+      },
+      {
+        "command": "php-class-diagram.generatePackageDiagram",
+        "title": "Generate package diagram",
+        "category": "PHP Class Diagram"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "command": "php-class-diagram.generateClassDiagram",
+          "when": "explorerResourceIsFolder",
+          "group": "2_execution"
+        },
+        {
+          "command": "php-class-diagram.generatePackageDiagram",
           "when": "explorerResourceIsFolder",
           "group": "2_execution"
         }

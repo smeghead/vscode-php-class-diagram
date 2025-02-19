@@ -30,45 +30,53 @@ function getOutputFilename(): string {
 	return `${os.tmpdir()}/${timestamp}.puml`;
 }
 
-export function activate(context: vscode.ExtensionContext) {
-	const disposable = vscode.commands.registerCommand(
-		"php-class-diagram.generateClassDiagram",
-		(uri: vscode.Uri) => {
-			if (!uri) {
-				vscode.window.showErrorMessage("No Directory selected.");
-				return;
-			}
+const generageMainFunction = (menuCommand: commandBuilder.Commands): (uri: vscode.Uri) => void => {
+	return (uri: vscode.Uri) => {
+		if (!uri) {
+			vscode.window.showErrorMessage("No Directory selected.");
+			return;
+		}
 
-			const config = vscode.workspace.getConfiguration("php-class-diagram");
-			const target = uri.fsPath;
-			const phpClassDiagram = pathResolver.getPhpClassDiagramPath(target, config.get("executablePath"));
-			if (phpClassDiagram.length === 0) {
-				vscode.window.showErrorMessage(
-					`Error: Failed to search php-class-diagram command.
+		const config = vscode.workspace.getConfiguration("php-class-diagram");
+		const target = uri.fsPath;
+		const phpClassDiagram = pathResolver.getPhpClassDiagramPath(target, config.get("executablePath"));
+		if (phpClassDiagram.length === 0) {
+			vscode.window.showErrorMessage(
+				`Error: Failed to search php-class-diagram command.
 Please install php-class-diagram into your composer project.
 \`composer require --dev smeghead/php-class-diagram\`
 or Specify \`PHP-class-diagram: Executable Path\` in settings.` 
-				);
-				return;
-			}
-
-			const outputFilename = getOutputFilename();
-			const command = commandBuilder.getCommand(phpClassDiagram, target, outputFilename);
-			console.log(command);
-
-			// 作成したPlantUMLのファイルを新しいウィンドウで開く。
-			runCommand(command).then(({ stdout, stderr }) => {
-				openFileInNewTab(outputFilename);
-				vscode.window.showInformationMessage(`Complete: Opened ${outputFilename} in new tab.`);
-			}).catch(({ stdout, stderr }) => {
-				console.log("Command failed!");
-				console.error("stderr:", stderr);
-				vscode.window.showErrorMessage(`Error: ${stderr}`);
-			});
+			);
+			return;
 		}
-	);
 
-  	context.subscriptions.push(disposable);
+		const outputFilename = getOutputFilename();
+		const command = commandBuilder.getCommand(menuCommand, phpClassDiagram, target, outputFilename);
+		console.log(command);
+
+		// 作成したPlantUMLのファイルを新しいウィンドウで開く。
+		runCommand(command).then(({ stdout, stderr }) => {
+			openFileInNewTab(outputFilename);
+			vscode.window.showInformationMessage(`Complete: Opened ${outputFilename} in new tab.`);
+		}).catch(({ stdout, stderr }) => {
+			console.log("Command failed!");
+			console.error("stderr:", stderr);
+			vscode.window.showErrorMessage(`Error: ${stderr}`);
+		});
+	};
+};
+
+export function activate(context: vscode.ExtensionContext) {
+  	context.subscriptions.push(
+		vscode.commands.registerCommand(
+			commandBuilder.Commands.CLASS_DIAGRAM,
+			generageMainFunction(commandBuilder.Commands.CLASS_DIAGRAM)
+		),
+		vscode.commands.registerCommand(
+			commandBuilder.Commands.PACKAGE_DIAGRAM,
+			generageMainFunction(commandBuilder.Commands.PACKAGE_DIAGRAM)
+		),
+	);
 }
 
 export function deactivate() {}
