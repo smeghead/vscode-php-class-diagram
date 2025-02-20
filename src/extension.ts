@@ -5,28 +5,28 @@ import os from 'os';
 import { exec } from "child_process";
 
 function runCommand(command: string): Promise<{ stdout: string; stderr: string }> {
-    return new Promise((resolve, reject) => {
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                reject({ stdout, stderr }); // 失敗した場合も標準出力・標準エラー出力を返す
-            } else {
-                resolve({ stdout, stderr });
-            }
-        });
-    });
+	return new Promise((resolve, reject) => {
+		exec(command, (error, stdout, stderr) => {
+			if (error) {
+				reject({ stdout, stderr }); // 失敗した場合も標準出力・標準エラー出力を返す
+			} else {
+				resolve({ stdout, stderr });
+			}
+		});
+	});
 }
 
 async function openFileInNewTab(filePath: string) {
-    try {
-        const document = await vscode.workspace.openTextDocument(filePath);
-        await vscode.window.showTextDocument(document, { preview: false });
-    } catch (error) {
+	try {
+		const document = await vscode.workspace.openTextDocument(filePath);
+		await vscode.window.showTextDocument(document, { preview: false });
+	} catch (error) {
 		throw new Error(`Failed to open file: ${error}`);
-    }
+	}
 }
 
 function getOutputFilename(): string {
-	const timestamp = Math.floor( new Date().getTime() / 1000 );
+	const timestamp = Math.floor(new Date().getTime() / 1000);
 	return `${os.tmpdir()}/${timestamp}.puml`;
 }
 
@@ -45,7 +45,7 @@ const generageMainFunction = (menuCommand: commandBuilder.Commands): (uri: vscod
 				`Error: Failed to search php-class-diagram command.
 Please install php-class-diagram into your composer project.
 \`composer require --dev smeghead/php-class-diagram\`
-or Specify \`PHP-class-diagram: Executable Path\` in settings.` 
+or Specify \`PHP-class-diagram: Executable Path\` in settings.`
 			);
 			return;
 		}
@@ -67,7 +67,7 @@ or Specify \`PHP-class-diagram: Executable Path\` in settings.`
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  	context.subscriptions.push(
+	context.subscriptions.push(
 		vscode.commands.registerCommand(
 			commandBuilder.Commands.CLASS_DIAGRAM,
 			generageMainFunction(commandBuilder.Commands.CLASS_DIAGRAM)
@@ -79,4 +79,4 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 }
 
-export function deactivate() {}
+export function deactivate() { }

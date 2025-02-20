@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-- .
+- Fix indent
 
 ## 0.0.5 (2025-02-19)
 
